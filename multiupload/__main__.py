@@ -16,13 +16,13 @@ logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s'
 
 def load_plugins(plugin_name):
     path = Path(f"multiupload/plugins/{plugin_name}.py")
-    name = "multiupload.plugins.{}".format(plugin_name)
+    name = f"multiupload.plugins.{plugin_name}"
     spec = importlib.util.spec_from_file_location(name, path)
     load = importlib.util.module_from_spec(spec)
     load.logger = logging.getLogger(plugin_name)
     spec.loader.exec_module(load)
-    sys.modules["multiupload.plugins." + plugin_name] = load
-    print("IMPORTED --> " + plugin_name)
+    sys.modules[f"multiupload.plugins.{plugin_name}"] = load
+    print(f"IMPORTED --> {plugin_name}")
 
 
 path = "multiupload/plugins/*.py"
